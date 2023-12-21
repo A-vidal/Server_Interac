@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "pngjs": "^7.0.0",
+    "unix-dgram": "^2.0.6"
+  }
+}

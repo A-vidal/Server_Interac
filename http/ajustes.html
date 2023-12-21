@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img src="/bolita.png" alt="">
+
+
+
+    <script>
+        
+        const api = 'http://localhost:7000/ajustes.json';
+        async function getdatos(api){
+            try {
+                const response = await fetch(api);
+                const data = await response.json();
+                console.log(data)
+            
+                // Modificar elementos según las palabras clave
+                switch(data.color){
+                    case "rojo":
+                        console.log("rojito")
+                }
+
+                switch(data){
+                    case "bolita":
+        
+
+                    case "color":
+                        switch(data[1]){
+                            case "rojo":
+                            console.log("rojito")
+                            //document.body.style.backgroundColor = data.color;
+                            case "azul":
+                            document.body.style.backgroundColor = data.color;
+                            default:
+
+                        }
+
+                        //case "tamaño":
+
+                    //default:
+                    }
+                    
+            } catch (error) {
+                console.error('Error al obtener los datos:', error);
+            }
+
+        }
+        //setInterval(getdatos, 5000);
+
+        document.addEventListener('DOMContentLoaded', getdatos(api), {
+            // Aquí va el código que deseas ejecutar nada más abrir la página
+        });
+
+    </script>
+</body>
+</html>

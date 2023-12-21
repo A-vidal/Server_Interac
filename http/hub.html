@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <link href="./estilos.css" rel="stylesheet">
+</head>
+<body>
+    <div id="lista" class="fondos">
+        <h3><b>Log</b></h3>
+        <p style="padding-left: 10%; padding-right: 10%; text-align:left;">njewznfwenjfnwefnwenfnwen bidjwbeijfewjfbwejfnwejfbewu 
+            jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        </p>
+    </div>
+    <dir id="mensaje" class="fondos">
+        <h3><b>Mensaje</b></h3>
+        <p style="padding-left: 10%; padding-right: 10%; text-align:left;">njewznfwenjfnwefnwenfnwen bidjwbeijfewjfbwejfnwejfbewu 
+            jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        </p>
+    </dir>
+    
+
+    <script>
+        function coger_datos(){
+            fetch('https://api.example.com/data')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

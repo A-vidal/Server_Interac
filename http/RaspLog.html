@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raspberry</title>
+    <script>
+        setInterval(async () => {
+            var log = String((await fetch("http://192.168.0.13:7000/updaterasp")).text());
+            var node = document.createElement("p");
+            node.innerText = log;
+            document.body.appendChild(node);
+        }, 1000)
+    </script>
+</head>
+<body>
+    <p>Fecha;Hora;Temperatura;Presion;Humedad;Orientacion;Acelerometro;Giroscopio;Mangnetometro</p>
+</body>
+</html>
