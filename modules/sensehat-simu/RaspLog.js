@@ -1,7 +1,8 @@
 // Abel Vidal Ripoll - Toni Tormo Pla
 
-const senseHat = (process.env.USER == "pi") ?
-                 require("node-sense-hat") : require("./node-sense-hat-emu");
+const SIMULACION = true;
+
+const senseHat = (SIMULACION)? require("./node-sense-hat-emu") : require("node-sense-hat");
 
 // const senseHat = require("./node-sense-hat-emu")
 const fs = require('fs');

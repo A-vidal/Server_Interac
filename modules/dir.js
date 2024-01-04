@@ -38,6 +38,7 @@ const content_types = {
   "mp4":  "video/mp4",
   "webm": "video/webm",
   "gif":  "image/gif",
+  "jpg":  "image/jpeg",
   "jepg": "image/jpeg",
   "png":  "image/png",
   "svg":  "image/svg+xml",
@@ -63,7 +64,8 @@ exports.http_file = (res, url) => {
     }
     try {
       var data = fs.readFileSync("./http" + url);
-    } catch {
+    } catch (error) {
+      console.error(`readFileSync(./http${url})`, error.message);
       res.writeHead(404, {"Content-Type": "text/plain"});
       res.write("Error 404: File Not Found");
       res.end();
