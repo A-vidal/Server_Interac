@@ -31,7 +31,7 @@ Este código es para una Raspberry que funcione como un servidor para una Interf
 4. $ `git commit -m "<mensaje relevante*>"`
 5. Notificar el cambio
 6. $ `git push origin main`
-- **_*_** mensaje relevante: explica lo que has hacho en una frase (no olvides las comillas " o ')
+- **_*_** mensaje relevante: explica lo que has hecho en una frase (no olvides las comillas " o ')
 
 ### Control de cambios
 - $ `git status --short`
