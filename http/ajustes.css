@@ -38,3 +38,12 @@ button{
 
     border: 5% solid ;
 }
+
+#color_selec{
+    width: 40%;
+    height: auto;
+    background-color: #a4d541;
+    margin: 1%;
+
+    border: 5% solid ;
+}
