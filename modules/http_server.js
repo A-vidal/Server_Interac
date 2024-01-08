@@ -135,32 +135,37 @@ exports.IOserver = (server, connection, disconnect, events) => {
     fs.writeFileSync("./logs/IO_server.csv", "Socket;Event;Data\n");
 
     io = new Server(server);
-    var socketsList = new Array();
 
     io.on("connection", (socket) => {
-        socketsList.push(socket);
-        IOlog(socket.io, "connection", stringfySocket(socketsList));
+        IOlog(socket.id, "connection", stringfySocket(socketsList));
         connection(socket);
-
+        /*
         socket.on("message", (msj) => {
-            IOlog(socket.io, "message", msj);
+            IOlog(socket.id, "message", msj);
             socketsList.forEach(sock => {
                 if (sock != socket) {
                     sock.send(msj);
                 }
             });
         });
-
+        */
         socket.on("disconnect", () => {
-            socketsList.pop(socket);
             fs.appendFileSync("./logs/IO_server.csv", [
                 socket.id, 
                 "disconnect",
                 stringfySocket(socketsList)
             ].join(";") + "\n");
+            disconnect(socket);
         });
 
-
+        for (const key in events) {
+            if (Object.hasOwnProperty.call(events, key)) {
+                socket.on(key, (msj) => {
+                    IOlog(socket.id, key, msj)
+                    events[key](socket, msj);
+                });
+            }
+        }
     })
 
     console.log("new IO Server");
