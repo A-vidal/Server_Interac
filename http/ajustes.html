@@ -3,58 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link href="./ajustes.css" rel="stylesheet">
+    <title>Ajustes</title>
 </head>
 <body>
-    <img src="/bolita.png" alt="">
-
-
+    <h1>Elementos Visibles</h1>
+    <div class="elementos">
+        <button onclick="visuales(this)">Log</button>
+        <button onclick="visuales(this)">Mensaje</button>
+        <button onclick="visuales(this)">Timer</button>
+        <button onclick="visuales(this)">Logo</button>
+    </div>
+    <h1>Color bordes</h1>
+    <div class="elementos">
+        <button onclick="ColorBorde(this)" style="background-color: black;">Negro</button>
+        <button onclick="ColorBorde(this)" style="background-color:white; color:black"">Blanco</button>
+        <button onclick="ColorBorde(this)" style="background-color:red;">Rojo</button>
+        <button onclick="ColorBordePerso(this)">Elije el que quieras</button>
+    </div>
+    <h1>Elementos Visibles</h1>
+    <div class="elementos">
+        <button>Log</button>
+        <button>Mensaje</button>
+        <button>Timer</button>
+        <button>Logo</button>
+    </div>
 
     <script>
-        
-        const api = 'http://localhost:7000/ajustes.json';
-        async function getdatos(api){
-            try {
-                const response = await fetch(api);
-                const data = await response.json();
-                console.log(data)
-            
-                // Modificar elementos según las palabras clave
-                switch(data.color){
-                    case "rojo":
-                        console.log("rojito")
-                }
-
-                switch(data){
-                    case "bolita":
-        
-
-                    case "color":
-                        switch(data[1]){
-                            case "rojo":
-                            console.log("rojito")
-                            //document.body.style.backgroundColor = data.color;
-                            case "azul":
-                            document.body.style.backgroundColor = data.color;
-                            default:
-
-                        }
-
-                        //case "tamaño":
-
-                    //default:
-                    }
-                    
-            } catch (error) {
-                console.error('Error al obtener los datos:', error);
+        function visuales(element) {
+            let color = window.getComputedStyle(element).backgroundColor
+            if (color == "rgb(255, 73, 73)"){
+                element.style.backgroundColor = "#6b1526";
             }
-
+            else{
+                element.style.backgroundColor = "#ff4949";
+            }
         }
-        //setInterval(getdatos, 5000);
+        
+        function ColorBorde(element) {
+            var colores = [];
+            for (var i = 0; i < element.parentElement.length; i++) {
+                console.log(i) //no entra en el bucle
+                colores.push(window.getComputedStyle(element.parentElement[i]).backgroundColor);
+            }
+            console.log(colores)
 
-        document.addEventListener('DOMContentLoaded', getdatos(api), {
-            // Aquí va el código que deseas ejecutar nada más abrir la página
-        });
+            if ("rgb(255, 73, 73)" in colores){
+                element.parentElement[0].style.backgroundColor = "black"
+                element.parentElement[1].style.backgroundColor = "white"
+                element.parentElement[2].style.backgroundColor = "red"
+                element.parentElement[3].style.backgroundColor = "#ff4949"
+            }
+            
+            element.style.backgroundColor = "rgb(255, 73, 73)";
+        }
+
+        function ColorBordePerso(element) {
+            let color = window.getComputedStyle(element).backgroundColor
+            console.log(color)
+            if (color == "rgb(255, 73, 73)"){
+                element.style.backgroundColor = "#6b1526";
+                tachar += 1
+            }
+            else{
+                element.style.backgroundColor = "#ff4949";
+                tachar -= 1
+            }
+        }
+
+        /*
+        const api = 'http://localhost:7000/ajustes.json';
+        function coger_datos(){
+            fetch(api)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        } 
+        */
 
     </script>
 </body>

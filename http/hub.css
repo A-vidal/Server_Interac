@@ -1,0 +1,97 @@
+body{
+    width: 100vw;
+    height: 100vh;
+
+    margin: 0px;
+    padding: 0px;
+    margin-top: 0px;
+}
+.fondos{
+    background-color: rgba(100, 0, 0, 0.358);
+}
+.parrafos{
+    padding-left: 10%; 
+    padding-right: 10%; 
+    text-align:left;
+}
+#lista{
+    width: 18%;
+    height: 80%;
+    
+    position: fixed;
+    top: 10%;
+    
+    text-align: center;
+    word-wrap: break-word;
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+
+    border: 8px solid;
+    border-left: none;
+    border-radius: 80px;
+    border-bottom-left-radius: 0%;
+    border-top-left-radius: 0%;
+}
+
+#mensaje{
+    width: 40%;
+    height: 15%;
+
+    position: fixed;
+    left: 30%;
+    right: 30%;
+    bottom: -2%;
+
+    
+    text-align: center;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+
+    border: 8px solid;
+    border-bottom: none;
+    border-radius: 80px;
+    border-bottom-left-radius: 0%;
+    border-bottom-right-radius: 0%;
+}
+#logo{
+    width: 120px;
+    height: 150px;
+
+    position: fixed;
+    bottom: -2%;
+    right: 0%;
+
+    border: 8px solid;
+    border-radius: 40px;
+}
+img{
+    width: 120px;
+    height: 120px;
+
+    position: relative;
+    right: 19px;
+    top: 15px;
+}
+#hora{
+    width: 200px;
+    height: 70px;
+
+    position: fixed;
+    top: -2%;
+    right: 0%;
+    
+    display: flex;
+
+    overflow: hidden; 
+
+    border: 8px solid;
+    border-radius: 30px;
+}
+#actuhora{
+    font-size: 30px;
+    font-weight: bold;
+
+    align-self: center;
+    padding-left: 12%;
+}
