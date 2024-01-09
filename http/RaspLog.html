@@ -4,13 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Raspberry</title>
+    <script src="/socket.io/socket.io.js"></script>
     <script>
-        setInterval(async () => {
-            var log = String((await fetch("http://192.168.0.13:7000/updaterasp")).text());
-            var node = document.createElement("p");
-            node.innerText = log;
-            document.body.appendChild(node);
-        }, 1000)
+        var socket = io();
+
+        window.onload(() => {
+            socket.emit("rasplog", "");
+
+            socket.on("log", (log) => {
+                var node = document.createElement("p");
+                node.innerText = String(log);
+                document.body.appendChild(node);
+            })
+        });
     </script>
 </head>
 <body>

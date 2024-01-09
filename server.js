@@ -6,11 +6,6 @@ const fs = require('fs');
 const ip = require('ip');
 
 // Local modules
-const dir = require("./modules/dir");
-const rasp = require("./modules/rasp");
-const http_server = require("./modules/http_server");
-const socket_events = require("./modules/socket_events");
-
 try {
   const RaspLog = require("./modules/sensehat-simu/RaspLog");
 } catch (error) {
@@ -18,6 +13,10 @@ try {
   console.error("RaspLog[]:", error.message);
   process.exit(1);
 }
+const dir = require("./modules/dir");
+const rasp = require("./modules/rasp");
+const http_server = require("./modules/http_server");
+const socket_events = require("./modules/socket_events");
 
 // Responses
 const http_control = (res) => {
@@ -31,13 +30,13 @@ const http_control = (res) => {
   }
 }
 
-const http_hub = (res) => {
+const http_hud = (res) => {
   try {
     res.writeHead(200, {"Content-Type": "text/html"});
-    res.write(fs.readFileSync("./http/hub.html"));
+    res.write(fs.readFileSync("./http/hud.html"));
     res.end();
   } catch (error) {
-    console.error("http_hub():", error.message);
+    console.error("http_hud():", error.message);
     process.exit(1);
   }
 }
@@ -70,8 +69,8 @@ const commands = {
   "control": (req, res) => {
     http_control(res);
   },
-  "hub": (req, res) => {
-    http_hub(res);
+  "hud": (req, res) => {
+    http_hud(res);
   },
   "ajustes": (req, res) => {
     http_ajustes(res);

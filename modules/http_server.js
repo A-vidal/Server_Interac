@@ -137,7 +137,7 @@ exports.IOserver = (server, connection, disconnect, events) => {
     io = new Server(server);
 
     io.on("connection", (socket) => {
-        IOlog(socket.id, "connection", stringfySocket(socketsList));
+        IOlog("server", "connection", socket.id);
         connection(socket);
         /*
         socket.on("message", (msj) => {
@@ -150,11 +150,7 @@ exports.IOserver = (server, connection, disconnect, events) => {
         });
         */
         socket.on("disconnect", () => {
-            fs.appendFileSync("./logs/IO_server.csv", [
-                socket.id, 
-                "disconnect",
-                stringfySocket(socketsList)
-            ].join(";") + "\n");
+            IOlog("server", "disconnect", socket.id);
             disconnect(socket);
         });
 
