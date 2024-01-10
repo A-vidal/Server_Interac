@@ -4,23 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
-    <link href="./hub.css" rel="stylesheet">
+    <link href="../css/hub.css" rel="stylesheet">
 </head>
 <body>
     <div id="log" class="fondos">
-        <h3><b>Log</b></h3>
-        <p class="parrafos">njewznfwenjfnwefnwenfnwen bidjwbeijfewjfbwejfnwejfbewu 
-            jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-        </p>
+        <h3><b>Log</b></h3> 
+        <p class="parrafos">Fecha;Hora;Temperatura;Presion;Humedad;Orientacion;Acelerometro;Giroscopio;Mangnetometro</p>
     </div>
     <dir id="mensaje" class="fondos">
         <h3><b>Mensaje</b></h3>
-        <p class="parrafos">njewznfwenjfnwefnwenfnwen bidjwbeijfewjfbwejfnwejfbewu 
-            jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        <p class="parrafos">
+            Sin mensajes
         </p>
     </dir>
     <dir id="logo" class="fondos">
-        <img src="../favicon.ico">
+        <img src="../bolita.png">
     </dir>
     <dir id="timer" class="fondos">
         <p id="actuhora"></p>
@@ -28,6 +26,17 @@
     
 
     <script>
+        function log(){
+            socket.emit("rasplog", "");
+
+            socket.on("log", (log) => {
+                var node = document.createElement("p");
+                node.innerText = String(log);
+                document.getElementById("log").appendChild(node);
+        })
+        setInterval(log, 1000);
+
+        }
         function actualizarHora() {
             var hora = new Date();
             var horas = hora.getHours();
@@ -61,6 +70,7 @@
                 console.error('Error:', error);
             });
         } */
+        
 
         function actu_hud(data){
             console.log(data)
@@ -126,7 +136,7 @@
                     break;
                 case "Blanco":
                     console.log("furula")
-                    document.body.style.borderColor = "white";
+                    document.body.style.borderColor = "red";
                     break;
                 case "Rojo":
                     document.body.style.borderColor = "red";
