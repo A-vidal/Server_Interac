@@ -7,7 +7,7 @@
     <link href="./hub.css" rel="stylesheet">
 </head>
 <body>
-    <div id="lista" class="fondos">
+    <div id="log" class="fondos">
         <h3><b>Log</b></h3>
         <p class="parrafos">njewznfwenjfnwefnwenfnwen bidjwbeijfewjfbwejfnwejfbewu 
             jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
@@ -22,7 +22,7 @@
     <dir id="logo" class="fondos">
         <img src="bolita.png">
     </dir>
-    <dir id="hora" class="fondos">
+    <dir id="timer" class="fondos">
         <p id="actuhora"></p>
     </dir>
     
@@ -61,6 +61,57 @@
                 console.error('Error:', error);
             });
         } */
+
+        function actu_hud(){
+            switch(data){
+                case "Log":
+                    log = 0
+                    if(log = 0){
+                        del_log = document.getElementById("log")
+                        add_log = del_log
+
+                        document.body.removeChild(del_log)
+                        log +=1
+                    }
+                    else{
+                        document.body.appendChild(add_log)
+                        log -=1
+                    }
+
+                case "Mensaje":
+                    
+                case "Timer":
+
+                case "Logo":
+
+                case "Negro":
+                    document.body.style.borderColor = "black";
+                case "Blanco":
+                    document.body.style.borderColor = "white";
+                case "Rojo":
+                    document.body.style.borderColor = "red";
+                default:
+                    document.body.style.borderColor = data;
+
+            case "color":
+                switch(data[1]){
+                    case "rojo":
+                    console.log("rojito")
+                    //document.body.style.backgroundColor = data.color;
+                    case "azul":
+                    document.body.style.backgroundColor = data.color;
+                    default:
+
+                }
+                //case "tamaño":
+            //default:
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', actu_hud(), {
+            // Aquí va el código que deseas ejecutar nada más abrir la página
+        });
+
 
         const api = 'http://localhost:7000/ajustes.json';
         async function getdatos(api){

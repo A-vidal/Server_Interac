@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./ajustes.css" rel="stylesheet">
+    <script src="./socket.io/socket.io.js"></script>
+    <script>const socket = io();</script>
     <title>Ajustes</title>
 </head>
 <body>
@@ -70,37 +72,27 @@
             }  
         }
         
-        /*const api = 'http://localhost:7000/ajustes.json';
-        function coger_datos(){
-            fetch(api)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        } */
-        
         async function sendText(text) {
-            try {
-                let response = await fetch('http://localhost:7000/ajustes.json', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({text: text})
-                });
-                if (!response.ok) {
-                    throw new Error('Server Response not OK');
-                }
-                let data = await response.json();
-                console.log('Success:', data);
-            } catch (error) {
-                console.error('Error:', error);
-            }
+            socket.send(text)
         }
         
+        /*try {
+            let response = await fetch('http://localhost:7000/ajustes.json', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({text: text})
+            });
+            if (!response.ok) {
+                throw new Error('Server Response not OK');
+            }
+            let data = await response.json();
+            console.log('Success:', data);
+        } catch (error) {
+            console.error('Error:', error);
+        }*/
+
     </script>
 </body>
 </html>
