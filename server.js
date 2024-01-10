@@ -7,10 +7,10 @@ const ip = require('ip');
 
 // Local modules
 try {
-  const RaspLog = require("./modules/sensehat-simu/RaspLog");
+  const {senseHat} = require("./modules/sensehat-simu/sense-hat");
 } catch (error) {
   console.log("Recuerda activar el simulador");
-  console.error("RaspLog[]:", error.message);
+  console.error("sense-hat[]:", error.message);
   process.exit(1);
 }
 const dir = require("./modules/dir");
@@ -22,7 +22,7 @@ const socket_events = require("./modules/socket_events");
 const http_control = (res) => {
   try {
     res.writeHead(200, {"Content-Type": "text/html"});
-    res.write(fs.readFileSync("./http/control.html"));
+    res.write(fs.readFileSync("./http/ajustes/ajustes.html"));
     res.end();
   } catch (error) {
     console.error("http_control():", error.message);
@@ -30,25 +30,46 @@ const http_control = (res) => {
   }
 }
 
-const http_hud = (res) => {
+const http_hub = (res) => {
   try {
     res.writeHead(200, {"Content-Type": "text/html"});
-    res.write(fs.readFileSync("./http/hud.html"));
+    res.write(fs.readFileSync("./http/hub/hub.html"));
     res.end();
   } catch (error) {
-    console.error("http_hud():", error.message);
+    console.error("http_hub():", error.message);
     process.exit(1);
   }
 }
 
 const http_ajustes = (res) => {
   try {
-    var data = fs.readFileSync("./http/ajustes.json")
-    res.writeHead(200, {"Content-Type": "text/plain"});
-    res.write(data);
+    res.writeHead(200, {"Content-Type": "text/html"});
+    res.write(fs.readFileSync("./http/ajustes/ajustes.html"));
     res.end();
   } catch (error) {
     console.error("http_ajustes():", error.message);
+    process.exit(1);
+  }
+}
+
+const http_log = (res) => {
+  try {
+    res.writeHead(200, {"Content-Type": "text/html"});
+    res.write(fs.readFileSync("./http/log/table.html"));
+    res.end();
+  } catch (error) {
+    console.error("http_log():", error.message);
+    process.exit(1);
+  }
+}
+
+const http_led = (res) => {
+  try {
+    res.writeHead(200, {"Content-Type": "text/html"});
+    res.write(fs.readFileSync("./http/led/led.html"));
+    res.end();
+  } catch (error) {
+    console.error("http_led():", error.message);
     process.exit(1);
   }
 }
@@ -58,7 +79,7 @@ const http_ajustes = (res) => {
 const commands = {
   "": (req, res) => {
       res.writeHead(200, {"Content-Type": "text/plain"});
-      res.write("¡Hola Mundo!");
+      res.write("Welcome!\nplease introduce the file you want to see in the url.");
       res.end();
   },
   "hola": (req, res) => {
@@ -69,8 +90,14 @@ const commands = {
   "control": (req, res) => {
     http_control(res);
   },
-  "hud": (req, res) => {
-    http_hud(res);
+  "hub": (req, res) => {
+    http_hub(res);
+  },
+  "log": (req, res) => {
+    http_log(res);
+  },
+  "led": (req, res) => {
+    http_led(res);
   },
   "ajustes": (req, res) => {
     http_ajustes(res);

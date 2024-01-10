@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leds</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="./led/led.css">
+    <script>
+        var socket = io();
+
+        function colorSet(element) {
+            let color = element.value;
+            element.style.backgroundColor = color;
+        }
+
+        function colorSend(element) {
+            var color = element.value;
+            var position = element.getAttribute("position");
+            console.log("led", position + color);
+            socket.emit("led", position + color);
+        }
+
+        function onClick(element) {
+            colorSend(element);
+            colorSet(element);
+        }
+    </script>
+</head>
+<body>
+    <table>
+    </table>
+</body>
+<script>
+    const size = 8;
+    var table = document.querySelector("table");
+    
+    for (let i = 0; i < size; i++) {
+        var row = document.createElement("tr");
+        for (let j = 0; j < size; j++) {
+            var col = document.createElement("th");
+            var color = document.createElement("input");
+            color.setAttribute("type", "color");
+            color.setAttribute("position", `${i},${j}`);
+            color.setAttribute("onchange", "onClick(this)");
+            color.value = "#000000";
+            col.appendChild(color);
+            row.appendChild(col);
+        }
+        table.appendChild(row)
+    }
+</script>
+</html>

@@ -41,6 +41,7 @@ const content_types = {
   "jpg":  "image/jpeg",
   "jepg": "image/jpeg",
   "png":  "image/png",
+  "ico":  "image/x-icon",
   "svg":  "image/svg+xml",
   "pdf":  "application/pdf",
   "zip":  "application/zip",
