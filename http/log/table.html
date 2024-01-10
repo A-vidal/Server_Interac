@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raspberry</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+    </script>
+    <link rel="stylesheet" href="./log/table.css">
+</head>
+<body>
+    <table>
+        <tr>
+            <th><img src="./log/favicon-32x32.png" alt="bolita"></th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Temperatura</th>
+            <th>Presion</th>
+            <th>Humedad</th>
+            <th>Orientacion</th>
+            <th>Acelerometro</th>
+            <th>Giroscopio</th>
+            <th>Mangnetometro</th>
+        </tr>
+    </table>
+</body>
+<script>
+    socket.emit("rasplog", "");
+
+    var log_count = 0;
+    socket.on("log", (log) => {
+        ++log_count;
+        var table = document.querySelector("table")
+        var row = document.createElement("tr");
+
+        var log_arr = String(log).split(";");
+
+        var cab = document.createElement("th");
+        cab.innerText = String(log_count);
+        row.appendChild(cab);
+
+        log_arr.forEach((value) => {
+            var element = document.createElement("th");
+            element.innerText = value;
+            row.appendChild(element);
+        });
+        table.appendChild(row);
+        bottom.click();
+        document.body.scroll(document.body.scrollHeight + document.body.offsetHeight)
+    })
+</script>
+</html>

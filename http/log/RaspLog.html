@@ -7,19 +7,18 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io();
-
-        window.onload(() => {
-            socket.emit("rasplog", "");
-
-            socket.on("log", (log) => {
-                var node = document.createElement("p");
-                node.innerText = String(log);
-                document.body.appendChild(node);
-            })
-        });
     </script>
 </head>
 <body>
     <p>Fecha;Hora;Temperatura;Presion;Humedad;Orientacion;Acelerometro;Giroscopio;Mangnetometro</p>
 </body>
+<script>
+    socket.emit("rasplog", "");
+
+    socket.on("log", (log) => {
+        var node = document.createElement("p");
+        node.innerText = String(log);
+        document.body.appendChild(node);
+    })
+</script>
 </html>

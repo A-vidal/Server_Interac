@@ -2,7 +2,7 @@
 
 const SIMULACION = true;
 
-const senseHat = (SIMULACION)? require("./node-sense-hat-emu") : require("node-sense-hat");
+const {senseHat} = require("./sensehat-simu/sense-hat");
 
 // const senseHat = require("./node-sense-hat-emu")
 const fs = require('fs');

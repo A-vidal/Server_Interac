@@ -17,6 +17,8 @@ h1{
     width: 45%;
     height: 8%;
 
+    min-width: 300px;
+
     display: flex;
     flex-direction: row;
     align-self: center;
