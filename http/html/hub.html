@@ -20,7 +20,7 @@
         </p>
     </dir>
     <dir id="logo" class="fondos">
-        <img src="bolita.png">
+        <img src="../favicon.ico">
     </dir>
     <dir id="timer" class="fondos">
         <p id="actuhora"></p>
@@ -62,7 +62,8 @@
             });
         } */
 
-        function actu_hud(){
+        function actu_hud(data){
+            console.log(data)
             switch(data){
                 case "Log":
                     log = 0
@@ -77,42 +78,72 @@
                         document.body.appendChild(add_log)
                         log -=1
                     }
-
+                    break;
                 case "Mensaje":
-                    
+                    mens = 0
+                    if(mens = 0){
+                        del_mens = document.getElementById("mensaje")
+                        add_mens = del_mens
+
+                        document.body.removeChild(del_mens)
+                        mens +=1
+                    }
+                    else{
+                        document.body.appendChild(add_mens)
+                        mens -=1
+                    }
+                    break;
                 case "Timer":
+                    time = 0
+                    if(time = 0){
+                        del_time = document.getElementById("timer")
+                        add_time = del_time
 
+                        document.body.removeChild(del_time)
+                        time +=1
+                    }
+                    else{
+                        document.body.appendChild(add_time)
+                        time -=1
+                    }
+                    break;
                 case "Logo":
+                    logo = 0
+                    if(logo = 0){
+                        del_logo = document.getElementById("logo")
+                        add_logo = del_logo
 
+                        document.body.removeChild(del_logo)
+                        logo +=1
+                    }
+                    else{
+                        document.body.appendChild(add_logo)
+                        logo -=1
+                    }
+                    break;
                 case "Negro":
                     document.body.style.borderColor = "black";
+                    break;
                 case "Blanco":
+                    console.log("furula")
                     document.body.style.borderColor = "white";
+                    break;
                 case "Rojo":
                     document.body.style.borderColor = "red";
+                    break;
                 default:
                     document.body.style.borderColor = data;
-
-            case "color":
-                switch(data[1]){
-                    case "rojo":
-                    console.log("rojito")
-                    //document.body.style.backgroundColor = data.color;
-                    case "azul":
-                    document.body.style.backgroundColor = data.color;
-                    default:
-
-                }
-                //case "tamaño":
-            //default:
+                    break;
             }
         }
-        
-        document.addEventListener('DOMContentLoaded', actu_hud(), {
+
+        let data = "Blanco";
+        setInterval(actu_hud(data), 1000);
+        //document.addEventListener('DOMContentLoaded', actu_hud(data), {
             // Aquí va el código que deseas ejecutar nada más abrir la página
-        });
+        //});
 
-
+        /*
         const api = 'http://localhost:7000/ajustes.json';
         async function getdatos(api){
             try {
@@ -144,12 +175,8 @@
             } catch (error) {
                 console.error('Error al obtener los datos:', error);
             }
-        }
+        }*/
         //setInterval(getdatos, 5000);
-
-        document.addEventListener('DOMContentLoaded', getdatos(api), {
-            // Aquí va el código que deseas ejecutar nada más abrir la página
-        });
     </script>
 </body>
 </html>
