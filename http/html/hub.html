@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
     <link href="../css/hub.css" rel="stylesheet">
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        socket.emit("rasplog", "");
+        socket.emit("hub", "")
+    </script>
 </head>
 <body>
     <div id="log" class="fondos">
@@ -26,17 +32,25 @@
     
 
     <script>
-        function log(){
-            socket.emit("rasplog", "");
+        socket.on("log", (log) => {
+            var node = document.createElement("p");
+            node.innerText = String(log);
+            var log = document.getElementById("log");
+            // log.removeChild(log.children[2]);
+            log.appendChild(node);
+        });
 
-            socket.on("log", (log) => {
-                var node = document.createElement("p");
-                node.innerText = String(log);
-                document.getElementById("log").appendChild(node);
+        socket.on("message", (msj) => {
+            var node = document.querySelector("#mensaje p");
+            console.log(msj)
+            node.innerText = String(msj);
         })
-        setInterval(log, 1000);
 
-        }
+        socket.on("hub", (text) => {
+            actu_hud(text);
+        });
+
+        
         function actualizarHora() {
             var hora = new Date();
             var horas = hora.getHours();
@@ -79,63 +93,55 @@
                 elements[i].style.borderColor = color;
             }
         }
-
+        var log = 0
+        var mens = 0
+        var time = 0
+        var logo = 0
         function actu_hud(data){
             console.log(data)
             switch(data){
                 case "Log":
-                    log = 0
-                    if(log = 0){
-                        del_log = document.getElementById("log")
-                        add_log = del_log
-
-                        document.body.removeChild(del_log)
+                    var del_log = document.getElementById("log")
+                    if(log == 0){
+                        del_log.style.display = "none"
                         log +=1
                     }
                     else{
-                        document.body.appendChild(add_log)
+                        del_log.style.display = "block"
                         log -=1
                     }
                     break;
                 case "Mensaje":
-                    mens = 0
-                    if(mens = 0){
-                        del_mens = document.getElementById("mensaje")
-                        add_mens = del_mens
-
-                        document.body.removeChild(del_mens)
+                    var del_mens = document.getElementById("mensaje")
+                    if(mens == 0){
+                        del_mens.style.display = "none"
                         mens +=1
                     }
                     else{
-                        document.body.appendChild(add_mens)
+                        del_mens.style.display = "block"
                         mens -=1
                     }
                     break;
                 case "Timer":
-                    time = 0
-                    if(time = 0){
-                        del_time = document.getElementById("timer")
-                        add_time = del_time
-
-                        document.body.removeChild(del_time)
+                    var del_time = document.getElementById("timer")
+                    if(time == 0){
+                        del_time.style.display = "none"
                         time +=1
                     }
                     else{
-                        document.body.appendChild(add_time)
+                        del_time.style.display = "flex"
                         time -=1
                     }
                     break;
                 case "Logo":
-                    logo = 0
-                    if(logo = 0){
-                        del_logo = document.getElementById("logo")
-                        add_logo = del_logo
+                    var del_logo = document.getElementById("logo")
+                    if(logo == 0){
+                        del_logo.style.display = "none"
 
-                        document.body.removeChild(del_logo)
                         logo +=1
                     }
                     else{
-                        document.body.appendChild(add_logo)
+                        del_logo.style.display = "block"
                         logo -=1
                     }
                     break;
@@ -153,47 +159,6 @@
                     break;
             }
         }
-
-        let data = "Blanco";
-        setInterval(actu_hud(data), 1000);
-        //document.addEventListener('DOMContentLoaded', actu_hud(data), {
-            // Aquí va el código que deseas ejecutar nada más abrir la página
-        //});
-
-        /*
-        const api = 'http://localhost:7000/ajustes.json';
-        async function getdatos(api){
-            try {
-                const response = await fetch(api);
-                const data = await response.json();
-                console.log(data)
-            
-                // Modificar elementos según las palabras clave
-                switch(data.color){
-                    case "rojo":
-                        console.log("rojito")
-                }
-                switch(data){
-                    case "bolita":
-
-                    case "color":
-                        switch(data[1]){
-                            case "rojo":
-                            console.log("rojito")
-                            //document.body.style.backgroundColor = data.color;
-                            case "azul":
-                            document.body.style.backgroundColor = data.color;
-                            default:
-
-                        }
-                        //case "tamaño":
-                    //default:
-                    }
-            } catch (error) {
-                console.error('Error al obtener los datos:', error);
-            }
-        }*/
-        //setInterval(getdatos, 5000);
     </script>
 </body>
 </html>

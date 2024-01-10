@@ -54,19 +54,6 @@ exports.createServer = (port, commands) => {
     return server;
 }
 
-const stringfySocket = (list) => {
-    try {
-        var aux = []
-        list.forEach(socket => {
-            aux.push(socket.id)
-        });
-        return `[${aux.join(", ")}]`
-    } catch (error) {
-        console.error("stringfySocket():", error.message);
-        process.exit(1);
-    }
-}
-
 const broadcastIOserver = (server) => {
     // http://.../socket.io/socket.io.js
 
