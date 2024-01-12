@@ -15,7 +15,7 @@
 <body>
     <div id="log" class="fondos">
         <h3><b>Log</b></h3> 
-        <p class="parrafos">Fecha;Hora;Temperatura;Presion;Humedad;Orientacion;Acelerometro;Giroscopio;Mangnetometro</p>
+        <p id="opciones" class="parrafos">Fecha;Hora;Temperatura;Presion;Humedad;Orientacion;Acelerometro;Giroscopio;Mangnetometro</p>
     </div>
     <dir id="mensaje" class="fondos">
         <h3><b>Mensaje</b></h3>
@@ -36,8 +36,13 @@
             var node = document.createElement("p");
             node.innerText = String(log);
             var log = document.getElementById("log");
-            // log.removeChild(log.children[2]);
-            log.appendChild(node);
+            var opciones = document.getElementById("opciones")
+            log.insertBefore(node, opciones.nextSibling);
+
+            console.log(log.children.length)
+            if (log.children.length == 6){
+                log.removeChild(log.children[6]);
+            }
         });
 
         socket.on("message", (msj) => {
@@ -73,17 +78,6 @@
 
         actualizarHora();
         setInterval(actualizarHora, 1000);
-        
-        /*function coger_datos(){
-            fetch('https://api.example.com/data')
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        } */
         
         function color_bordes(color){
             var elements = document.getElementsByTagName('*');
