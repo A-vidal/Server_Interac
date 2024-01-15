@@ -36,8 +36,13 @@
             var node = document.createElement("p");
             node.innerText = String(log);
             var log = document.getElementById("log");
-            // log.removeChild(log.children[2]);
-            log.appendChild(node);
+            var opciones = document.getElementById("opciones")
+            log.insertBefore(node, opciones.nextSibling);
+
+            console.log(log.children.length)
+            if (log.children.length == 6){
+                log.removeChild(log.children[6]);
+            }
         });
 
         socket.on("message", (msj) => {
