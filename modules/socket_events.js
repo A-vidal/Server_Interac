@@ -3,6 +3,7 @@
 const {Socket} = require("socket.io");
 var s = new Socket() // s es para testear como va un socket, no hace nada
 */
+const { functionsIn } = require("lodash");
 const RaspLog = require("./RaspLog");
 const leds = require("./leds");
 const fs = require("fs");
@@ -43,12 +44,36 @@ const goBroadcast = (socket, msj) => {
   });
 }
 
+const stringfySocket = (list) => {
+  try {
+      var aux = []
+      list.forEach(socket => {
+          aux.push(socket.id)
+      });
+      return `[${aux.join(", ")}]`
+  } catch (error) {
+      console.error("stringfySocket():", error.message);
+      process.exit(1);
+  }
+}
+
 // Leds sistem ############################################################
 const set_led = (msj) => {
   arr = String(msj).split("#");
   pos = arr[0].split(",")
   color = leds.hexToRgb("#" + arr[1]);
   leds.setLed(pos, color);
+}
+
+// HUB sistem #######################################################
+var socketsHUB = new Array();
+const goHub = (socket, msj) => {
+  socketsList.forEach(sock => {
+    if (sock != socket) {
+      socket.send("enviado a:", sock.id);
+      sock.emit("hub", msj);
+    }
+  });
 }
 
 // Exports ################################################################
@@ -58,6 +83,9 @@ exports.connect = (socket) => {
 
 exports.disconnect = (socket) => {
   socketsList.pop(socket);
+  try {
+    log_sockets.pop(socket);
+  } catch {}
 }
 
 exports.events = {
@@ -69,5 +97,30 @@ exports.events = {
   },
   "led": (socket, msj) => {
     set_led(msj);
-  }
+  },
+  "hub": (socket, msj) => {
+    socketsHUB.push(socket);
+  },
+  "ajustes": (socket, msj) => {
+    goHub(socket, msj);
+  },
+  "list": (socket, msj) => {
+    switch (msj) {
+      case "":
+        socket.send(stringfySocket(socketsList));
+        break;
+      case "log":
+        socket.send(stringfySocket(log_sockets));
+        break;
+      case "hub":
+        socket.send(stringfySocket(socketsHUB));
+        break;
+      default:
+        socket.send(stringfySocket(socketsList));
+        break;
+    }
+  },
+  "loglist": (socket, msj) => {
+    socket.send(stringfySocket(log_sockets));
+  },
 }

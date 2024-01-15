@@ -5,23 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../css/ajustes.css" rel="stylesheet">
     <script src="./socket.io/socket.io.js"></script>
-    <script>const socket = io();</script>
+    <script>
+        const socket = io();
+        socket.on("message", (msj) => {
+            console.log(msj)
+        });
+    </script>
     <title>Ajustes</title>
 </head>
 <body>
     <h1>Elementos Visibles</h1>
     <div class="elementos">
-        <button onclick="visuales(this); sendText(this.innerText);">Log</button>
-        <button onclick="visuales(this); sendText(this.innerText);">Mensaje</button>
-        <button onclick="visuales(this); sendText(this.innerText);">Timer</button>
-        <button onclick="visuales(this); sendText(this.innerText);">Logo</button>
+        <button onclick="visuales(this);">Log</button>
+        <button onclick="visuales(this);">Mensaje</button>
+        <button onclick="visuales(this);">Timer</button>
+        <button onclick="visuales(this);">Logo</button>
     </div>
     <h1>Color bordes</h1>
     <div class="elementos">
-        <button onclick="ColorBorde(this); sendText(this.innerText);" style="background-color: black;">Negro</button>
-        <button onclick="ColorBorde(this); sendText(this.innerText);" style="background-color:white; color:black"">Blanco</button>
-        <button onclick="ColorBorde(this); sendText(this.innerText);" style="background-color:red;">Rojo</button>
-        <input type="color" id="color_selec" onchange="ColorBordePerso(this); sendText(this.value);" value="#a4d541">
+        <button onclick="ColorBorde(this);" style="background-color: black;">Negro</button>
+        <button onclick="ColorBorde(this);" style="background-color:white; color:black"">Blanco</button>
+        <button onclick="ColorBorde(this);" style="background-color:red;">Rojo</button>
+        <input type="color" id="color_selec" onchange="ColorBordePerso(this);" value="#a4d541">
     </div>
 
     <script>
@@ -34,6 +39,7 @@
             else{
                 element.style.backgroundColor = "#ff4949";
             }
+            socket.emit("ajustes", element.innerText);
         }
         
         function ColorBorde(element) {
@@ -52,6 +58,7 @@
             element.parentElement.children[3].value = "#a4d541"
             element.style.backgroundColor = "rgb(255, 73, 73)";
             }
+            socket.emit("ajustes", element.innerText);
         }
 
         function ColorBordePerso(element) {
@@ -69,29 +76,9 @@
                     element.parentElement.children[2].style.backgroundColor = "red"
                 }
             element.style.backgroundColor = color;
-            }  
-        }
-        
-        async function sendText(text) {
-            socket.send(text)
-        }
-        
-        /*try {
-            let response = await fetch('http://localhost:7000/ajustes.json', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({text: text})
-            });
-            if (!response.ok) {
-                throw new Error('Server Response not OK');
             }
-            let data = await response.json();
-            console.log('Success:', data);
-        } catch (error) {
-            console.error('Error:', error);
-        }*/
+            socket.emit("ajustes", element.value);
+        }
 
     </script>
 </body>

@@ -22,7 +22,7 @@ const socket_events = require("./modules/socket_events");
 const http_control = (res) => {
   try {
     res.writeHead(200, {"Content-Type": "text/html"});
-    res.write(fs.readFileSync("./http/ajustes/ajustes.html"));
+    res.write(fs.readFileSync("./http/html/ajustes.html"));
     res.end();
   } catch (error) {
     console.error("http_control():", error.message);
@@ -33,7 +33,7 @@ const http_control = (res) => {
 const http_hub = (res) => {
   try {
     res.writeHead(200, {"Content-Type": "text/html"});
-    res.write(fs.readFileSync("./http/hub/hub.html"));
+    res.write(fs.readFileSync("./http/html/hub.html"));
     res.end();
   } catch (error) {
     console.error("http_hub():", error.message);
@@ -44,7 +44,7 @@ const http_hub = (res) => {
 const http_ajustes = (res) => {
   try {
     res.writeHead(200, {"Content-Type": "text/html"});
-    res.write(fs.readFileSync("./http/ajustes/ajustes.html"));
+    res.write(fs.readFileSync("./http/html/ajustes.html"));
     res.end();
   } catch (error) {
     console.error("http_ajustes():", error.message);
@@ -66,7 +66,7 @@ const http_log = (res) => {
 const http_led = (res) => {
   try {
     res.writeHead(200, {"Content-Type": "text/html"});
-    res.write(fs.readFileSync("./http/led/led.html"));
+    res.write(fs.readFileSync("./http/html/led.html"));
     res.end();
   } catch (error) {
     console.error("http_led():", error.message);
