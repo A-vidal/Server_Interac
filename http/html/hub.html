@@ -32,17 +32,25 @@
     
 
     <script>
-        function log(){
-            socket.emit("rasplog", "");
+        socket.on("log", (log) => {
+            var node = document.createElement("p");
+            node.innerText = String(log);
+            var log = document.getElementById("log");
+            // log.removeChild(log.children[2]);
+            log.appendChild(node);
+        });
 
-            socket.on("log", (log) => {
-                var node = document.createElement("p");
-                node.innerText = String(log);
-                document.getElementById("log").appendChild(node);
+        socket.on("message", (msj) => {
+            var node = document.querySelector("#mensaje p");
+            console.log(msj)
+            node.innerText = String(msj);
         })
-        setInterval(log, 1000);
 
-        }
+        socket.on("hub", (text) => {
+            actu_hud(text);
+        });
+
+        
         function actualizarHora() {
             var hora = new Date();
             var horas = hora.getHours();
