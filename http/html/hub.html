@@ -9,13 +9,13 @@
     <script>
         const socket = io();
         socket.emit("rasplog", "");
-        socket.emit("hub", "")
+        socket.emit("hub", "");
     </script>
 </head>
 <body>
     <div id="log" class="fondos">
         <h3><b>Log</b></h3> 
-        <p class="parrafos">Fecha;Hora;Temperatura;Presion;Humedad;Orientacion;Acelerometro;Giroscopio;Mangnetometro</p>
+        <p id="opciones" class="parrafos">Fecha;Hora;Temperatura;Presion;Humedad;Orientacion;Acelerometro;Giroscopio;Mangnetometro</p>
     </div>
     <dir id="mensaje" class="fondos">
         <h3><b>Mensaje</b></h3>
@@ -32,25 +32,17 @@
     
 
     <script>
-        socket.on("log", (log) => {
-            var node = document.createElement("p");
-            node.innerText = String(log);
-            var log = document.getElementById("log");
-            // log.removeChild(log.children[2]);
-            log.appendChild(node);
-        });
+        function log(){
+            socket.emit("rasplog", "");
 
-        socket.on("message", (msj) => {
-            var node = document.querySelector("#mensaje p");
-            console.log(msj)
-            node.innerText = String(msj);
+            socket.on("log", (log) => {
+                var node = document.createElement("p");
+                node.innerText = String(log);
+                document.getElementById("log").appendChild(node);
         })
+        setInterval(log, 1000);
 
-        socket.on("hub", (text) => {
-            actu_hud(text);
-        });
-
-        
+        }
         function actualizarHora() {
             var hora = new Date();
             var horas = hora.getHours();
@@ -73,17 +65,6 @@
 
         actualizarHora();
         setInterval(actualizarHora, 1000);
-        
-        /*function coger_datos(){
-            fetch('https://api.example.com/data')
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        } */
         
         function color_bordes(color){
             var elements = document.getElementsByTagName('*');

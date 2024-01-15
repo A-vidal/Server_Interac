@@ -5,6 +5,7 @@ body{
     margin: 0px;
     padding: 0px;
     margin-top: 0px;
+    color: white;
 }
 .fondos{
     background-color: rgba(100, 0, 0, 0.7);
@@ -31,6 +32,7 @@ body{
     border-radius: 80px;
     border-bottom-left-radius: 0%;
     border-top-left-radius: 0%;
+    border-color: black;
 }
 
 #mensaje{
@@ -53,6 +55,7 @@ body{
     border-radius: 80px;
     border-bottom-left-radius: 0%;
     border-bottom-right-radius: 0%;
+    border-color: black;
 }
 #logo{
     width: 120px;
@@ -64,6 +67,7 @@ body{
 
     border: 8px solid;
     border-radius: 40px;
+    border-color: black;
 }
 img{
     width: 120px;
@@ -87,6 +91,7 @@ img{
 
     border: 8px solid;
     border-radius: 30px;
+    border-color: black;
 }
 #actuhora{
     font-size: 30px;
