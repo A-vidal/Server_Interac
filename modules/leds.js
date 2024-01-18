@@ -4,6 +4,10 @@ const leds = senseHat.Leds;
 
 leds.clear();
 
+leds.showMessage("Server Ready!", 0.05);
+
+setTimeout(leds.clear, 5000);
+
 exports.setLed = (pos, color) => {
     try {
         leds.setPixel(pos[0], pos[1], (color.r, color.g, color.b));
@@ -12,6 +16,16 @@ exports.setLed = (pos, color) => {
         process.exit(1);
     }
 }
+
+exports.setScreen = (screen) => {
+    try {
+        leds.setPixels(screen);
+    } catch (error) {
+        console.error("setScreen():", error.message);
+        process.exit(1);
+    }
+}
+
 
 exports.hexToRgb = (hex) => {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);

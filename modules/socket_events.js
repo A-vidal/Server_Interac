@@ -65,6 +65,11 @@ const set_led = (msj) => {
   leds.setLed(pos, color);
 }
 
+const set_screen = (msj) => {
+  var screen = JSON.parse(msj);
+  leds.setScreen(screen);
+}
+
 // HUB sistem #######################################################
 var socketsHUB = new Array();
 const goHub = (socket, msj) => {
@@ -97,6 +102,9 @@ exports.events = {
   },
   "led": (socket, msj) => {
     set_led(msj);
+  },
+  "leds": (socket, msj) => {
+    set_screen(msj);
   },
   "hub": (socket, msj) => {
     socketsHUB.push(socket);

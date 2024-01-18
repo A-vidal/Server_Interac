@@ -5,29 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leds</title>
     <script src="/socket.io/socket.io.js"></script>
-    <link rel="stylesheet" href="./css/led.css">
+    <link rel="stylesheet" href="../css/led.css">
     <script>
         var socket = io();
 
         function colorSet(element) {
             let color = element.value;
             element.style.backgroundColor = color;
+            console.log("led", color);
         }
 
-        function colorSend(element) {
-            var color = element.value;
-            var position = element.getAttribute("position");
-            console.log("led", position + color);
-            socket.emit("led", position + color);
+        function colorSend() {
+            var screen = [];
+            var table = document.querySelector("table");
+            var k = 0;
+            for (let i = 0; i < size; i++) {
+                var row = table.children[i];
+                for (let j = 0; j < size; j++) {
+                    var pixel = row.children[j].children[0];
+                    var color = hexToRgb(pixel.value);
+                    screen[k] = new Array(3);
+                    screen[k][0] = color.r;
+                    screen[k][1] = color.g;
+                    screen[k][2] = color.b;
+                    k++;
+                }
+            }
+            console.log("leds");
+            socket.emit("leds", JSON.stringify(screen));
         }
 
-        function onClick(element) {
+        function butClick(element) {
             colorSend(element);
             colorSet(element);
+        }
+
+        const hexToRgb = (hex) => {
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
         }
     </script>
 </head>
 <body>
+    <button onclick="colorSend()">Upload</button>
     <table>
     </table>
 </body>
@@ -42,7 +66,7 @@
             var color = document.createElement("input");
             color.setAttribute("type", "color");
             color.setAttribute("position", `${i},${j}`);
-            color.setAttribute("onchange", "onClick(this)");
+            color.setAttribute("onchange", "colorSet(this)");
             color.value = "#000000";
             col.appendChild(color);
             row.appendChild(col);
